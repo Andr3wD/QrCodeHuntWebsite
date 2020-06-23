@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+<title>Scavenger Hunt Find!</title>
+</head>
+
+<body>
+	<!-- 
+This page will be for:
+	Giving congrats to whoever found it.
+	Giving the next hint
+	
+	TODO: having the comments everyone has put, and the ability to post comments
+
+There should be:
+	Go to login page
+	About section
+	Next hint
+	Player comments
+ -->
+	<p>Congratulations on finding a code!</p>
+	
+	<p>Here's your next hint:</p>
+	<p th:text="${hint}"></p>
+
+</body>
+
+
+</html>
