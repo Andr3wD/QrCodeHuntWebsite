@@ -9,7 +9,18 @@ import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.QrCode;
-
+/**
+ * This class implements the QrCodeDao.java interface and implements it in
+ * whatever way we want. We could eventually use a different DB, so we would
+ * just make a new AccessService class and switch the "@Qualifier("qrCodeDao")"
+ * in QrCodeService.java to the new repo name.
+ * 
+ * Everything that has to do with accessing data from the db should be done
+ * here, and NOT in a service. We can call the methods from the service to get the data.
+ * 
+ * @author Andrew
+ *
+ */
 @Repository("qrCodeDao")
 public class QrCodeDataAccessService implements QrCodeDao {
 
@@ -57,14 +68,14 @@ public class QrCodeDataAccessService implements QrCodeDao {
 	}
 
 	@Override
-	public QrCode getNextCode(UUID id) { //For if no account. Just go around list.
-		//LOOKAT improve efficiency
+	public QrCode getNextCode(UUID id) { // For if no account. Just go around list.
+		// LOOKAT improve efficiency
 		Optional<QrCode> temp = getCodeById(id);
 		if (!temp.isEmpty()) {
-			int newindex = (DB.indexOf(temp.get())+1)%DB.size();
+			int newindex = (DB.indexOf(temp.get()) + 1) % DB.size();
 			return DB.get(newindex);
 		} else {
-			return DB.get(0); //WARN will always return first code, even if inputted code doesn't exist
+			return DB.get(0); // WARN will always return first code, even if inputted code doesn't exist
 		}
 	}
 

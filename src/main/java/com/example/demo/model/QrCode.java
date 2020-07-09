@@ -3,6 +3,13 @@ package com.example.demo.model;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * This class is a 'model' for QrCodes.
+ * Specifically the id, location, hint, name, created date, and so on.
+ * 
+ * @author Andrew
+ *
+ */
 public class QrCode {
 
 	// Needs to have: UUID for specific QrCode, private location (for me
@@ -10,7 +17,10 @@ public class QrCode {
 
 	// TODO after: add name, hint, and time/day added
 
-	// TODO later: add public commenting and difficulty
+	// TODO later: add public commenting, difficulty, and track # times found.
+	// Maybe track #times found by counting the number of users in DB who have found this instead.
+	// Will probably just go with # of unique users to url to track how many found it.
+	// Would be resource-intensive to rely on backend to calculate that every time.
 
 	private UUID id;
 	private String location;

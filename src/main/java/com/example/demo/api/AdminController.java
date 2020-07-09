@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.model.QrCode;
 import com.example.demo.service.QrCodeService;
 
+/**
+ * This controller is for specifically dealing with admin related tasks.
+ * @author Andrew
+ *
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -35,6 +40,6 @@ public class AdminController {
 		// Put DB for view and take more codes in
 		model.addAttribute("code", new QrCode());
 		model.addAttribute("list", codeService.getAllCodes());
-		return "admin-page.html";
+		return "admin-page";
 	}
 }
