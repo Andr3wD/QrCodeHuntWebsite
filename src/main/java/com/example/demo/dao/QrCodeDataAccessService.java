@@ -21,7 +21,7 @@ import com.example.demo.model.QrCode;
  * @author Andrew
  *
  */
-@Repository("qrCodeDao")
+@Repository("qrCodeDao") // why not @component? https://stackoverflow.com/questions/6827752/whats-the-difference-between-component-repository-service-annotations-in
 public class QrCodeDataAccessService implements QrCodeDao {
 
 	private static List<QrCode> DB = new ArrayList<>();

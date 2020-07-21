@@ -11,6 +11,10 @@ import com.example.demo.model.QrCode;
  * This interface tells us how we should always be able to interact with our
  * database, no matter how it's implemented.
  * 
+ * More on DAO pattern:
+ * https://www.tutorialspoint.com/design_pattern/data_access_object_pattern.htm
+ * https://stackoverflow.com/questions/35078383/what-are-the-dao-dto-and-service-layers-in-spring-framework
+ * 
  * @author Andrew
  *
  */
