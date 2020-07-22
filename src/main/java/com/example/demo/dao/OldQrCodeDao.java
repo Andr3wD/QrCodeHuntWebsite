@@ -1,19 +1,33 @@
 package com.example.demo.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.model.QrCode;
 
-public interface QrCodeDao {
-//TODO fix all javadocs
+/**
+ * This interface tells us how we should always be able to interact with our
+ * database, no matter how it's implemented.
+ * 
+ * More on DAO pattern:
+ * https://www.tutorialspoint.com/design_pattern/data_access_object_pattern.htm
+ * https://stackoverflow.com/questions/35078383/what-are-the-dao-dto-and-service-layers-in-spring-framework
+ * 
+ * @author Andrew
+ *
+ */
+@Deprecated
+public interface OldQrCodeDao {
+
 	/**
 	 * Inserts a QrCode in the DB.
 	 * 
+	 * @param id
 	 * @param code
 	 * @return 0 or null if failure or 1 if success.
 	 */
 	// TODO add random data creation by default.
-	int insertCode(QrCode code);
+	int insertCode(Short id, QrCode code);
 
 	/**
 	 * Deletes a QrCode in the DB.
@@ -21,7 +35,7 @@ public interface QrCodeDao {
 	 * @param id
 	 * @return 0 or null if failure or 1 if success.
 	 */
-	int deleteCodeById(Short id); // Phasing out UUID due to possible size problems. Highly unlikely there will ever be more than 32k QrCodes.
+	int deleteCodeById(Short id);
 
 	/**
 	 * Updates the QrCode with the given id. This is implemented in a way that the
@@ -43,6 +57,13 @@ public interface QrCodeDao {
 	Optional<QrCode> getCodeById(Short id);
 
 	/**
+	 * Gets a random QrCode.
+	 * 
+	 * @return Random QrCode from the DB.
+	 */
+	QrCode getRandomCode();
+
+	/**
 	 * Gets the QrCode after the given QrCode UUID.
 	 * 
 	 * @param id
@@ -50,6 +71,15 @@ public interface QrCodeDao {
 	 *         list if there's no 'next.'
 	 */
 	QrCode getNextCode(Short id);
-	
-	Iterable<QrCode> getAllCodesIterable();
+
+	/**
+	 * Gets all codes from the DB.
+	 * 
+	 * @deprecated Depreciated due to not following the model that only the DAO
+	 *             should touch the entire DB at a time.
+	 * @return
+	 */
+	// TODO phase out by being more specific and should plan for potentially large
+	// DB, so try not to access the whole thing at the same time.
+	List<QrCode> selectAllCodes();
 }

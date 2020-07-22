@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,7 +30,7 @@ public class QrCodeService {
 	 * database.
 	 */
 	@Autowired
-	public QrCodeService(@Qualifier("qrCodeDao") QrCodeDao codeDao) {
+	public QrCodeService(@Qualifier("qrCodeDaoDB") QrCodeDao codeDao) {
 		this.codeDao = codeDao;
 	}
 
@@ -39,15 +38,48 @@ public class QrCodeService {
 		return codeDao.insertCode(code);
 	}
 
-	public List<QrCode> getAllCodes() {
-		return codeDao.selectAllCodes();
+	public String getAllCodes() {
+		String result = "";
+		for (QrCode code : codeDao.getAllCodesIterable()) {
+			result = result + String.format("{%d, %s, %s, %s}", code.getId(), code.getName(), code.getLocation(), code.getCreated().toString());
+		}
+		return result;
 	}
 
 	public QrCode getRandomCode() {
-		return codeDao.getRandomCode();
+		return null;
 	}
 
-	public QrCode getNextCode(UUID id) {
+	public QrCode getNextCode(Short id) {
 		return codeDao.getNextCode(id);
+	}
+	
+	public QrCode getCodeByName(String name) {
+		for (QrCode code : codeDao.getAllCodesIterable()) {
+			if (code.getName().equals(name)) {
+				return code;
+			}
+		}
+		return null;
+	}
+	
+	public QrCode getNextCodeByName(String name) {
+		// By doing this, we skip 1 potential DB accesses from getting the next QrCode.
+		Iterator<QrCode> iter = codeDao.getAllCodesIterable().iterator();
+		QrCode front = null;
+		while (iter.hasNext()) {
+			QrCode code = iter.next();
+			if (front == null) {
+				front = code;
+			}
+			if (code.getName().equals(name)) {
+				if (iter.hasNext()) {
+					return iter.next();
+				} else {
+					return front;
+				}
+			}
+		}
+		return null;
 	}
 }

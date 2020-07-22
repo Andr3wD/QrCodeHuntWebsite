@@ -1,7 +1,10 @@
 package com.example.demo.model;
 
 import java.util.Date;
-import java.util.UUID;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * This class is a 'model' for QrCodes.
@@ -10,6 +13,7 @@ import java.util.UUID;
  * @author Andrew
  *
  */
+@Entity
 public class QrCode {
 
 	// Needs to have: UUID for specific QrCode, private location (for me
@@ -22,7 +26,9 @@ public class QrCode {
 	// Will probably just go with # of unique users to url to track how many found it.
 	// Would be resource-intensive to rely on backend to calculate that every time.
 
-	private UUID id;
+	@Id
+	@GeneratedValue
+	private Short id;
 	private String location;
 	private String hint;
 	private String name;
@@ -32,14 +38,14 @@ public class QrCode {
 
 	}
 
-	public QrCode(UUID id, String location, String hint, String name) {
+	public QrCode(Short id, String location, String hint, String name) {
 		this.id = id;
 		this.location = location;
 		this.hint = hint;
 		this.name = name;
 	}
 
-	public UUID getId() {
+	public Short getId() {
 		return id;
 	}
 
@@ -47,7 +53,7 @@ public class QrCode {
 		return location;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Short id) {
 		this.id = id;
 	}
 

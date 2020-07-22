@@ -16,9 +16,9 @@ public interface PersonDao {
 
 	void insertPerson(Person person);
 	
-	int deletePersonById(Long id);
+	int deletePersonById(Short id);
 	
 	Iterable<Person> getAllPersonsIterable();
 	
-	Optional<Person> getPersonById(Long id);
+	Optional<Person> getPersonById(Short id);
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,13 +20,14 @@ import com.example.demo.model.QrCode;
  * @author Andrew
  *
  */
+@Deprecated
 @Repository("qrCodeDao") // why not @component? https://stackoverflow.com/questions/6827752/whats-the-difference-between-component-repository-service-annotations-in
-public class QrCodeDataAccessService implements QrCodeDao {
+public class QrCodeDataAccessService implements OldQrCodeDao {
 
 	private static List<QrCode> DB = new ArrayList<>();
 
 	@Override
-	public int insertCode(UUID id, QrCode code) {
+	public int insertCode(Short id, QrCode code) {
 		QrCode temp = new QrCode(id, code.getLocation(), code.getHint(), code.getName());
 		temp.setCreated(new Date());
 		DB.add(temp);
@@ -35,7 +35,7 @@ public class QrCodeDataAccessService implements QrCodeDao {
 	}
 
 	@Override
-	public int deleteCodeById(UUID id) {
+	public int deleteCodeById(Short id) {
 		Optional<QrCode> temp = getCodeById(id);
 		if (!temp.isEmpty()) {
 			DB.remove(temp.get());
@@ -45,7 +45,7 @@ public class QrCodeDataAccessService implements QrCodeDao {
 	}
 
 	@Override
-	public int updateCodeById(UUID id, QrCode code) {
+	public int updateCodeById(Short id, QrCode code) {
 		Optional<QrCode> temp = getCodeById(id);
 		if (!temp.isEmpty()) {
 			DB.remove(temp.get());
@@ -58,7 +58,7 @@ public class QrCodeDataAccessService implements QrCodeDao {
 	}
 
 	@Override
-	public Optional<QrCode> getCodeById(UUID id) {
+	public Optional<QrCode> getCodeById(Short id) {
 		return DB.stream().filter(q -> q.getId().equals(id)).findFirst();
 	}
 
@@ -68,7 +68,7 @@ public class QrCodeDataAccessService implements QrCodeDao {
 	}
 
 	@Override
-	public QrCode getNextCode(UUID id) { // For if no account. Just go around list.
+	public QrCode getNextCode(Short id) { // For if no account. Just go around list.
 		// LOOKAT improve efficiency
 		Optional<QrCode> temp = getCodeById(id);
 		if (!temp.isEmpty()) {

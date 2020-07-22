@@ -9,12 +9,12 @@ import com.example.demo.model.Person;
 import com.example.demo.repositories.PersonRepository;
 
 @Repository("personDao")
-public class PersonDataAccessService implements PersonDao {
+public class PersonDaoDB implements PersonDao {
 
 	private PersonRepository DB;
 
 	@Autowired
-	public PersonDataAccessService(PersonRepository repo) {
+	public PersonDaoDB(PersonRepository repo) {
 		this.DB = repo;
 	}
 
@@ -24,12 +24,12 @@ public class PersonDataAccessService implements PersonDao {
 	}
 
 	@Override
-	public int deletePersonById(Long id) {
+	public int deletePersonById(Short id) {
 		return 0;
 	}
 
 	@Override
-	public Optional<Person> getPersonById(Long id) {
+	public Optional<Person> getPersonById(Short id) {
 		return DB.findById(id);
 	}
 

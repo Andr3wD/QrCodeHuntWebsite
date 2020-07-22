@@ -38,11 +38,11 @@ public class PersonService {
 		}
 	}
 
-	public int deletePersonById(Long id) {
+	public int deletePersonById(Short id) {
 		return personDao.deletePersonById(id);
 	}
 
-	public Person getPersonById(Long id) {
+	public Person getPersonById(Short id) {
 		Optional<Person> temp = personDao.getPersonById(id);
 		return temp.isEmpty() ? null : temp.get();
 	}
