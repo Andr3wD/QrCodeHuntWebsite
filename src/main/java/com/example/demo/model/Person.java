@@ -23,7 +23,7 @@ public class Person {
 										// techniques.
 	@Id // Tells JPA that this id is the primary key in the DB.
 	@GeneratedValue
-	private Long id; // expecting to need for SQL DB
+	private Short id; // expecting to need for SQL DB
 	private Date created;
 	// TODO for found qrcodes and comments, check out @onetomany
 
@@ -43,11 +43,11 @@ public class Person {
 		this.name = name;
 	}
 
-	public Long getId() {
+	public Short getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Short id) {
 		this.id = id;
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.model.Report;
 import com.example.demo.service.QrCodeService;
 
 /**
@@ -27,8 +28,9 @@ public class QrCodeController {
 		this.codeService = codeService;
 	}
 
-	/* TODO fix, change to name instead of UUID and from id to name
-	 * So url mapping is rootdomain/submit. Additionally, the
+	/*
+	 * TODO fix, change to name instead of UUID and from id to name So url mapping
+	 * is rootdomain/submit. Additionally, the
 	 * "@RequestParam(required = false) UUID id" is a little weird in that the
 	 * parameter "id" is literally obtained from the url directly. So in
 	 * rootdomain/submit?id=SOMEUUID, SOMEUUID would populate the "id" variable.
@@ -37,11 +39,20 @@ public class QrCodeController {
 	public String foundCode(@RequestParam(required = false) String name, Model model) {
 		// TODO add way to check if user is logged in or not and hand out page
 		// accordingly.
-		//TODO check that it only allows real submissions.
+		// TODO check that it only allows real submissions.
+		System.out.println(name);
 		if (name != null) {
-			// I suspect low # of users, so parsing to get next code using a name instead of primary key is probably a better tradeoff than huge UUID space taking keys.
-			model.addAttribute("hint", codeService.getNextCodeByName(name).getHint()); // For guests just loop around the database
-			return "guest-found-qr-page";
+			if (codeService.getCodeByName(name) != null) {
+				// I suspect low # of users, so parsing to get next code using a name instead of
+				// primary key is probably a better tradeoff than huge UUID space taking keys.
+				model.addAttribute("hint", codeService.getNextCodeByName(name).getHint()); // For guests just loop around
+																													// the database
+				return "guest-found-qr-page";
+			} else { // Code doesn't exist. Show error page.
+				model.addAttribute("errorObj", new Report()); //TODO complete
+				return "error-qr-page";
+			}
+
 		} else {
 			// TODO Show submit qrcode page
 			return "guest-found-qr-page";

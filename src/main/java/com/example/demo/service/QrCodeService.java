@@ -64,6 +64,7 @@ public class QrCodeService {
 	}
 	
 	public QrCode getNextCodeByName(String name) {
+		// Can't just get id and either increment or go to start, as there may be gaps.
 		// By doing this, we skip 1 potential DB accesses from getting the next QrCode.
 		Iterator<QrCode> iter = codeDao.getAllCodesIterable().iterator();
 		QrCode front = null;
