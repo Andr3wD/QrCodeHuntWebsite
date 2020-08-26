@@ -36,34 +36,32 @@ There should be:
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Home</a>
+				<li class="nav-item active"><a class="nav-link" href="#">Home</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="#">About</a>
+				<li class="nav-item active"><a class="nav-link" href="#">About</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Login/Register</a>
+				<li class="nav-item active"><a class="nav-link" href="#">Login/Register</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 	<!-- Navigation Bar Ends -->
-	
+
 	<h3>Login</h3>
-	<form method="post" th:object="${person}" th:action="@{/login}">
-		<input type="text" placeholder="name" th:field="*{name}"/><br>
-		<input type="text" placeholder="password" th:field="*{password}"/><br>
+	<form method="post" th:action="@{/login}">
+		<input type="text" id="username" name="username" /><br>
+		 <input type="text" id="password" name="password" /><br>
 		<button type="submit">Login</button>
 	</form>
-	
+	<div th:if="${param.error}" class="alert alert-danger"> Invalid username or password.</div>
+	<!--  
 	<h3>Register account</h3>
 	<form method="post" th:object="${person}" th:action="@{/login/register}">
 		<input type="text" placeholder="name" th:field="*{name}"/><br>
 		<input type="text" placeholder="password" th:field="*{password}"/><br>
 		<button type="submit">Register</button>
 	</form>
-
+	-->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>

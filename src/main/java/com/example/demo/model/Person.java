@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -28,8 +30,18 @@ public class Person implements UserDetails {
 	@Id // Tells JPA that this id is the primary key in the DB.
 	@GeneratedValue
 	private Short id; // expecting to need for SQL DB
+	
 	private Date created;
+	private String authority;
 	// TODO for found qrcodes and comments, check out @onetomany
+
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
 
 	public Date getCreated() {
 		return created;
@@ -47,6 +59,7 @@ public class Person implements UserDetails {
 		this.id = id;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -60,11 +73,6 @@ public class Person implements UserDetails {
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
-	}
-
-	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -74,23 +82,29 @@ public class Person implements UserDetails {
 	}
 
 	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return Arrays.asList(new SimpleGrantedAuthority(authority));
+	}
+
+	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return true;
 	}
+
 
 }

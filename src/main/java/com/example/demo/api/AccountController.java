@@ -37,9 +37,18 @@ public class AccountController {
 	}
 
 	@GetMapping("/login")
-	public String getPage(Model model) {
-		model.addAttribute("person", new Person());
-		return "guest-login_register-page";
+	public String getLoginPage() {
+		return "login";
+	}
+	
+	@GetMapping("/register")
+	public String getRegisterPage(Model model) {
+		Person p = new Person();
+		p.setUsername("admin");
+		p.setPassword("password");
+		p.setAuthority("ROLE_ADMIN");
+		personService.insertPerson(p);
+		return "login";
 	}
 
 }

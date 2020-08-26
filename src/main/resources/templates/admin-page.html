@@ -24,8 +24,9 @@
 	
 	<p th:text="${personlist}"></p>
 	<form method="post" th:object="${person}" th:action="@{/admin/person}">
-		<input type="text" placeholder="name" th:field="*{name}"/><br>
-		<!-- <input type="text" placeholder="password" th:field="*{password}"/><br> -->
+		<input type="text" placeholder="username" th:field="*{username}"/><br>
+		<input type="text" placeholder="password" th:field="*{password}"/><br>
+		<input type="text" placeholder="authority" th:field="*{authority}"/><br>
 		<button type="submit">Create a new person.</button>
 	</form>
 
