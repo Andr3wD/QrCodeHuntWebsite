@@ -19,7 +19,7 @@ import com.example.demo.model.Person;
 // Differences between DAO and service layer: https://softwareengineering.stackexchange.com/questions/358681/if-service-layer-is-doing-nothing-just-calling-methods-in-dao-can-my-service
 @Service
 public class PersonService {
-
+	//TODO: deal with passwords properly. https://reflectoring.io/spring-security-password-handling/
 	PersonDao personDao;
 
 	@Autowired
@@ -50,7 +50,7 @@ public class PersonService {
 	public String getAllPersons() {
 		String result = "";
 		for (Person person : personDao.getAllPersonsIterable()) {
-			result = result + String.format("{%d, %s}", person.getId(), person.getName());
+			result = result + String.format("{%d, %s}", person.getId(), person.getUsername());
 		}
 		return result;
 	}
