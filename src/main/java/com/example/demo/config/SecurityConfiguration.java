@@ -41,22 +41,20 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 						.permitAll()
 						.usernameParameter("username")
 						.passwordParameter("password")
-						.defaultSuccessUrl("/admin")
+						.defaultSuccessUrl("/home")
 						.and()
 						.csrf().disable(); //TODO remove
-		System.out.println("configuring http");
-						
 	}
+	
+	//LOOKAT https://codenerve.com/spring-security-user-role-redirect/index.html
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		System.out.println("getting encoder");
 		return new BCryptPasswordEncoder(10);
 	}
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
-		System.out.println("getting person service");
 		return personService; 
 	}
 	

@@ -2,29 +2,41 @@
 <html xmlns:th="http://thymeleaf.org">
 
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <title>Scavenger Hunt Find!</title>
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
-	<!-- 
-This page will be for:
-	Giving congrats to whoever found it.
-	Giving the next hint
-	
-	TODO: having the comments everyone has put, and the ability to post comments
-
-There should be:
-	Go to login page
-	About section
-	Next hint
-	Player comments
- -->
-	<p>Congratulations on finding a code!</p>
-	
-	<p>Here's your next hint:</p>
-	<p th:text="${hint}"></p>
-
+	<nav class="navbar navbar-light navbar-expand-md bg-primary navigation-clean-button">
+		<div class="container">
+			<button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navcol-1">
+				<ul class="nav navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link active text-light" href="home">Home</a></li>
+					<li class="nav-item"><a class="nav-link text-light" href="about">About</a></li>
+				</ul>
+				<span class="navbar-text actions">
+					<a class="btn btn-light action-button" role="button" href="logout">Log Out</a>
+				</span>
+			</div>
+		</div>
+	</nav>
+	<h1 class="text-center" style="margin: 30px;">Congratulations!</h1>
+	<p class="text-center">
+		You found a QR code!<br>
+		<br>You can find out more about what this is in the About tab.<br>
+		<br>For now, the hint to the next QR code is:
+	</p>
+	<p class="text-center" th:text="${hint}"></p>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
-
 
 </html>

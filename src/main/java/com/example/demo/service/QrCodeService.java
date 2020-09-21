@@ -63,6 +63,11 @@ public class QrCodeService {
 		return null;
 	}
 	
+	//LOOKAT there must be a better way
+	public boolean exists(String name) {
+		return getCodeByName(name) != null;
+	}
+	
 	public QrCode getNextCodeByName(String name) {
 		// Can't just get id and either increment or go to start, as there may be gaps.
 		// By doing this, we skip 1 potential DB accesses from getting the next QrCode.

@@ -1,5 +1,7 @@
 package com.example.demo.api;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,20 +38,26 @@ public class QrCodeController {
 	 * rootdomain/submit?id=SOMEUUID, SOMEUUID would populate the "id" variable.
 	 */
 	@GetMapping(path = "/submit")
-	public String foundCode(@RequestParam(required = false) String name, Model model) {
+	public String foundCode(@RequestParam(required = false) String name, Model model, HttpServletRequest request) {
 		// TODO add way to check if user is logged in or not and hand out page
 		// accordingly.
 		// TODO check that it only allows real submissions.
-		System.out.println(name);
 		if (name != null) {
 			if (codeService.getCodeByName(name) != null) {
 				// I suspect low # of users, so parsing to get next code using a name instead of
 				// primary key is probably a better tradeoff than huge UUID space taking keys.
-				model.addAttribute("hint", codeService.getNextCodeByName(name).getHint()); // For guests just loop around
-																													// the database
-				return "guest-found-qr-page";
+				if (request.isUserInRole("ROLE_USER")) {
+					
+					return "user-found-qr-page";
+				} else {
+					// For guests just loop around the database
+					model.addAttribute("hint", codeService.getNextCodeByName(name).getHint());
+					return "guest-found-qr-page";
+				}
+
+				
 			} else { // Code doesn't exist. Show error page.
-				model.addAttribute("errorObj", new Report()); //TODO complete
+				model.addAttribute("errorObj", new Report()); // TODO complete
 				return "error-qr-page";
 			}
 

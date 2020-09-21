@@ -43,12 +43,8 @@ public class AccountController {
 	
 	@GetMapping("/register")
 	public String getRegisterPage(Model model) {
-		Person p = new Person();
-		p.setUsername("admin");
-		p.setPassword("password");
-		p.setAuthority("ROLE_ADMIN");
-		personService.insertPerson(p);
-		return "login";
+		
+		return "register";
 	}
 
 }
